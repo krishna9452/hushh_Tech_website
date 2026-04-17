@@ -33,3 +33,10 @@ vertex-ai-key.json
 private_keys/
 .pre-commit-cache/
 .gitleaks-report.json
+# Environment files (API keys)
+.env
+server/.env
+
+# Node cache
+npm-cache/
+

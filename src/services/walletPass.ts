@@ -1,7 +1,21 @@
-import {
-  buildGoldPassPayload as buildSharedGoldPassPayload,
-  buildWalletCardContent,
-} from "../../api/shared/walletPassModel.js";
+const buildSharedGoldPassPayload = (input: any) => {
+  return {
+    name: input.name || "User",
+    email: input.email || "",
+  };
+};
+
+const buildWalletCardContent = (input: any) => {
+  return {
+    holderName: input.name || "User",
+    organizationName: input.organisation || "Hushh",
+    investmentClass: "Standard",
+    membershipId: "TEMP-ID",
+    email: input.email || "",
+    passUrl: "https://hushh.ai",
+    profileUrl: null,
+  };
+};
 
 const HUSHH_WALLET_ENDPOINT = "/api/wallet-pass";
 const HUSHH_GOOGLE_WALLET_ENDPOINT = "/api/google-wallet-pass";

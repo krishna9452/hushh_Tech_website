@@ -1,3 +1,4 @@
+import Chatbot from './components/Chatbot';
 import React, { Suspense } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import Navbar from './components/Navbar';
@@ -407,6 +408,7 @@ function App() {
         </ContentWrapper>
         {showFooter && <Footer />}
         {showMobileNav && <MobileBottomNav />}
+        <Chatbot />
       </div>
     );
   };
