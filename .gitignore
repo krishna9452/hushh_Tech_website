@@ -40,3 +40,4 @@ server/.env
 # Node cache
 npm-cache/
 
+tmp/
