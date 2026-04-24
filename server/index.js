@@ -12,6 +12,10 @@ app.post("/api/chat", async (req, res) => {
   try {
     const { message } = req.body;
 
+    if (!message || typeof message !== "string" || !message.trim()) {
+      return res.status(400).json({ reply: "Message is required and must be a non-empty string." });
+    }
+
     console.log("Incoming message:", message);
 
     const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
