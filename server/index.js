@@ -22,11 +22,11 @@ app.post("/api/chat", async (req, res) => {
       method: "POST",
       headers: {
         "Authorization": `Bearer ${process.env.OPENROUTER_API_KEY}`,
-        "Content-Type": "application/json",
-      },
       body: JSON.stringify({
         model: "openai/gpt-3.5-turbo",
-        messages: [{ role: "user", content: message }],
+        messages: [
+          { role: "user", content: message }
+        ],
       }),
     });
 
