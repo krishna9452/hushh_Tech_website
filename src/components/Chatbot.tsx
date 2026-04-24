@@ -35,6 +35,10 @@ export default function Chatbot() {
         body: JSON.stringify({ message: input }),
       });
 
+      if (!res.ok) {
+        throw new Error(`Server responded with status ${res.status}`);
+      }
+
       const data = await res.json();
 
       setMessages([
