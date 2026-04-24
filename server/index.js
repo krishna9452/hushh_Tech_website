@@ -16,17 +16,15 @@ app.post("/api/chat", async (req, res) => {
       return res.status(400).json({ reply: "Message is required and must be a non-empty string." });
     }
 
-    console.log("Incoming message:", message);
-
     const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
       method: "POST",
       headers: {
         "Authorization": `Bearer ${process.env.OPENROUTER_API_KEY}`,
+        "Content-Type": "application/json",
+      },
       body: JSON.stringify({
         model: "openai/gpt-3.5-turbo",
-        messages: [
-          { role: "user", content: message }
-        ],
+        messages: [{ role: "user", content: message }],
       }),
     });
 
@@ -37,8 +35,6 @@ app.post("/api/chat", async (req, res) => {
     }
 
     const data = await response.json();
-
-    console.log("OpenRouter raw:", JSON.stringify(data, null, 2));
 
     const reply =
       data?.choices?.[0]?.message?.content ||
