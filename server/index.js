@@ -27,37 +27,16 @@ app.post("/api/chat", async (req, res) => {
       body: JSON.stringify({
         model: "openai/gpt-3.5-turbo",
         messages: [
-          {
-            role: "system",
-            content: `
-You are an AI assistant for Hushh Tech, a real AI-powered financial platform.
-
-About Hushh:
-- AI-first financial platform
-- Provides intelligent investment insights
-- Helps users understand and navigate financial decisions
-- Focuses on personalized user experiences
-
-Your responsibilities:
-- Help users understand Hushh services and features
-- Guide users through the website
-- Answer clearly and concisely
-- Be friendly and professional
-
-STRICT RULES:
-- NEVER say Hushh is fictional
-- DO NOT provide financial advice
-- Keep responses short (2–4 sentences)
-- Sound like a product assistant, not a generic AI
-`
-          },
-          {
-            role: "user",
-            content: message,
-          },
+          // ...
         ],
       }),
     });
+
+    if (!response.ok) {
+      const errorDetails = await response.text();
+      console.error("OpenRouter API error:", response.status, errorDetails);
+      throw new Error("Failed to communicate with AI service.");
+    }
 
     const data = await response.json();
 
