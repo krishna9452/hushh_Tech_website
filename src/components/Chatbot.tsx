@@ -25,6 +25,10 @@ export default function Chatbot() {
     setMessages(newMessages);
     setInput("");
     setLoading(true);
+    const userMessage = { role: "user", text: input };
+    setMessages((prevMessages) => [...prevMessages, userMessage]);
+    setInput("");
+    setLoading(true);
 
     try {
       const res = await fetch("/api/chat", {
@@ -35,25 +39,20 @@ export default function Chatbot() {
         body: JSON.stringify({ message: input }),
       });
 
-      if (!res.ok) {
-        throw new Error(`Server responded with status ${res.status}`);
-      }
-
       const data = await res.json();
 
-      setMessages([
-        ...newMessages,
+      setMessages((prevMessages) => [
+        ...prevMessages,
         { role: "bot", text: data.reply },
       ]);
     } catch {
-      setMessages([
-        ...newMessages,
+      setMessages((prevMessages) => [
+        ...prevMessages,
         { role: "bot", text: "Something went wrong." },
       ]);
+    } finally {
+      setLoading(false);
     }
-
-    setLoading(false);
-  };
 
   return (
     <>
