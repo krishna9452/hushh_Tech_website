@@ -26,9 +26,7 @@ app.post("/api/chat", async (req, res) => {
       },
       body: JSON.stringify({
         model: "openai/gpt-3.5-turbo",
-        messages: [
-          // ...
-        ],
+        messages: [{ role: "user", content: message }],
       }),
     });
 
