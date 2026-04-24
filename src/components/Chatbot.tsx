@@ -38,6 +38,10 @@ export default function Chatbot() {
         body: JSON.stringify({ message: messageToSend }),
       });
 
+      if (!res.ok) {
+        throw new Error("Failed to get a response from the server.");
+      }
+      
       const data = await res.json();
 
       setMessages((prevMessages) => [
