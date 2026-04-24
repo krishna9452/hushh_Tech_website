@@ -21,12 +21,11 @@ export default function Chatbot() {
   const sendMessage = async () => {
     if (!input.trim()) return;
 
-    const newMessages = [...messages, { role: "user", text: input }];
-    setMessages(newMessages);
-    setInput("");
-    setLoading(true);
-    const userMessage = { role: "user", text: input };
-    setMessages((prevMessages) => [...prevMessages, userMessage]);
+    const messageToSend = input;
+    setMessages((prevMessages) => [
+      ...prevMessages,
+      { role: "user", text: messageToSend },
+    ]);
     setInput("");
     setLoading(true);
 
@@ -36,7 +35,7 @@ export default function Chatbot() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ message: input }),
+        body: JSON.stringify({ message: messageToSend }),
       });
 
       const data = await res.json();
