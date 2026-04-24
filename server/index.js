@@ -6,10 +6,20 @@ dotenv.config();
 
 const app = express();
 app.use(cors({ origin: process.env.CORS_ORIGIN }));
-app.use(express.json());
+    import { rateLimit } from "express-rate-limit";
 
-app.post("/api/chat", async (req, res) => {
-  try {
+    const limiter = rateLimit({
+    	windowMs: 15 * 60 * 1000, // 15 minutes
+    	max: 20, // Limit each IP to 20 requests per window
+    	standardHeaders: true,
+    	legacyHeaders: false,
+    });
+
+    app.use(express.json());
+    app.use("/api/chat", limiter);
+
+    app.post("/api/chat", async (req, res) => {
+      try {
     const { message } = req.body;
 
     if (!message || typeof message !== "string" || !message.trim()) {
